@@ -1,0 +1,35 @@
+$pole-tresorerie: #e52e99;
+$pole-presidence: #A52EE5;
+$pole-communication: #F5A623;
+$pole-secretariat: #F8E71C;
+$pole-evenementiel: #50E3C2;
+$pole-local: #B8E986;
+$pole-actif: #4A90E2;
+$pole-implique: #D0021B;
+$pole-superviseur: #9013FE;
+$pole-culture: #F5A623;
+$pole-pioux: #F8E71C;
+$pole-prevention: #50E3C2;
+$pole-suivi: #B8E986;
+$pole-pls: #4A90E2;
+$pole-pet: #f3d1d5;
+$pole-arena: $pole-pet;
+
+:root {
+    --pole-tresorerie: #{$pole-tresorerie};
+    --pole-presidence: #{$pole-presidence};
+    --pole-communication: #{$pole-communication};
+    --pole-secretariat: #{$pole-secretariat};
+    --pole-evenementiel: #{$pole-evenementiel};
+    --pole-local: #{$pole-local};
+    --pole-actif: #{$pole-actif};
+    --pole-implique: #{$pole-implique};
+    --pole-superviseur: #{$pole-superviseur};
+    --pole-culture: #{$pole-culture};
+    --pole-pioux: #{$pole-pioux};
+    --pole-prevention: #{$pole-prevention};
+    --pole-suivi: #{$pole-suivi};
+    --pole-pls: #{$pole-pls};
+    --pole-pet: #{$pole-pet};
+    --pole-arena: #{$pole-arena};
+}
