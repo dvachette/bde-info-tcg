@@ -1,0 +1,101 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  PLAYER
+  ADMIN
+}
+
+enum RefreshTokenStatus {
+  ACTIVE
+  REVOKED
+}
+
+enum CombatStatus {
+  ONGOING
+  FINISHED
+}
+
+enum CombatEndReason {
+  HP_ZERO
+  FORFEIT
+  DISCONNECT_TIMEOUT
+  SERVER_CRASH_DRAW
+}
+
+enum TradeStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  DONE
+  CANCELLED
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+}
+
+enum ShopOfferType {
+  CARD
+  PACK
+  BOOSTER
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(PLAYER)
+  keysBalance  Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  refreshTokens RefreshToken[]
+  collections   Collection[]
+  decks         Deck[]
+}
+
+model RefreshToken {
+  jti         String              @id @default(uuid())
+  userId      String
+  familyId    String              @default(uuid())
+  status      RefreshTokenStatus  @default(ACTIVE)
+  issuedAt    DateTime            @default(now())
+  expiresAt   DateTime
+  replacedBy  String?             @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model Collection {
+  id         String   @id @default(uuid())
+  userId     String
+  cardId     String
+  quantity   Int      @default(1)
+  acquiredAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cardId])
+}
+
+model Deck {
+  id             String   @id @default(uuid())
+  userId         String
+  name           String
+  memberCardIds  String[]
+  petCardId      String
+  arenaCardId    String
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+}

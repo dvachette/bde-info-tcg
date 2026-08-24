@@ -26,6 +26,8 @@ const backgroundStyle = computed(() => {
     }
     const sweep = 90 / poles.length;
     const stops = poles
+        .slice()
+        .reverse()
         .map((pole, i) => `var(--pole-${pole}) ${180 + i * sweep}deg ${180 + (i + 1) * sweep}deg`)
         .join(', ');
     return { background: `conic-gradient(at 100% 0%, ${stops})` };

@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: cartes-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cartes_app
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: cartes_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data-dev:/var/lib/postgresql/data
+    networks:
+      - cartes-network
+
+networks:
+  cartes-network:
+    driver: bridge
+
+volumes:
+  postgres-data-dev:
