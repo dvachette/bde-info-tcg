@@ -2,14 +2,14 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 import crypto from 'crypto';
 import ms from 'ms';
 import { Response } from 'express';
-import { PrismaClient, Role, RefreshTokenStatus } from '@prisma/client';
+import { Role, RefreshTokenStatus } from '@prisma/client';
+import { prisma } from './prisma.js';
+import { config } from '#config/config.js';
 
-const prisma = new PrismaClient();
-
-const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET!;
-const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
-const ACCESS_EXPIRES_IN = process.env.ACCESS_TOKEN_EXPIRES_IN ?? '15m';
-const REFRESH_EXPIRES_IN_DAYS = Number(process.env.REFRESH_TOKEN_EXPIRES_IN_DAYS ?? 7);
+const ACCESS_SECRET = config.JWT_ACCESS_SECRET;
+const REFRESH_SECRET = config.JWT_REFRESH_SECRET;
+const ACCESS_EXPIRES_IN = config.ACCESS_TOKEN_EXPIRES_IN;
+const REFRESH_EXPIRES_IN_DAYS = config.REFRESH_TOKEN_EXPIRES_IN_DAYS;
 const REFRESH_EXPIRES_IN_MS = REFRESH_EXPIRES_IN_DAYS * 24 * 60 * 60 * 1000;
 const REFRESH_EXPIRES_IN_SECONDS = REFRESH_EXPIRES_IN_DAYS * 24 * 60 * 60;
 
@@ -17,7 +17,7 @@ const REFRESH_EXPIRES_IN_SECONDS = REFRESH_EXPIRES_IN_DAYS * 24 * 60 * 60;
 // garantit que le cookie et le JWT expirent au même moment.
 const ACCESS_TOKEN_MAX_AGE_MS = ms(ACCESS_EXPIRES_IN as ms.StringValue);
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = config.NODE_ENV === 'production';
 
 interface AccessTokenPayload {
     userId: string;

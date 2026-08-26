@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
 import {
     generateAccessToken,
     generateRefreshToken,
@@ -10,8 +9,7 @@ import {
     decodeRefreshTokenJti,
 } from '../services/token.js';
 import { loginSchema, registerSchema } from '#services/validation.js';
-
-const prisma = new PrismaClient();
+import { prisma } from '../services/prisma.js';
 
 export async function login(req: Request, res: Response): Promise<void> {
     const parsed = loginSchema.safeParse(req.body);
