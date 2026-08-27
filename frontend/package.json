@@ -15,6 +15,8 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "axios": "^1.20.0",
+    "oxlint": "^1.73.0",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
   },
@@ -30,7 +32,6 @@
     "eslint-plugin-vue": "~10.9.2",
     "jiti": "^2.7.0",
     "npm-run-all2": "^9.0.2",
-    "oxlint": "~1.74.0",
     "prettier": "3.9.5",
     "sass-embedded": "^1.103.1",
     "typescript": "~6.0.0",

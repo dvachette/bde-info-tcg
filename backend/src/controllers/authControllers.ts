@@ -100,7 +100,7 @@ export async function me(req: Request, res: Response): Promise<void> {
         return;
     }
 
-    res.status(200).json(user);
+    res.status(200).json({ user });
 }
 
 export async function register(req: Request, res: Response): Promise<void> {

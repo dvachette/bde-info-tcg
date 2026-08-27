@@ -25,5 +25,6 @@ export const config = {
     JWT_REFRESH_SECRET: required("JWT_REFRESH_SECRET"),
     ACCESS_TOKEN_EXPIRES_IN: optional("ACCESS_TOKEN_EXPIRES_IN", "15m"),
     REFRESH_TOKEN_EXPIRES_IN_DAYS: parseInt(optional("REFRESH_TOKEN_EXPIRES_IN_DAYS", "7"), 10),
-    NODE_ENV: optional("NODE_ENV", "dev")
+    NODE_ENV: optional("NODE_ENV", "dev"),
+    FRONTEND_URL: required("FRONTEND_URL"),
 }
