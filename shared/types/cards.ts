@@ -40,7 +40,7 @@ export interface MemberInterface extends Card {
     attackName: string;
     attackDescription: string;
     attackCost: number;
-    attack: string;
+    attack: (other: MemberInterface) => boolean;
     statusEffects: string[];
     mandat: CardMandat;
 }
