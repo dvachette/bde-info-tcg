@@ -7,9 +7,9 @@ import {
     setAuthCookies,
     clearAuthCookies,
     decodeRefreshTokenJti,
-} from '../services/token.js';
+} from '#services/token.js';
 import { loginSchema, registerSchema } from '#services/validation.js';
-import { prisma } from '../services/prisma.js';
+import { prisma } from '#services/prisma.js';
 
 export async function login(req: Request, res: Response): Promise<void> {
     const parsed = loginSchema.safeParse(req.body);
@@ -53,7 +53,7 @@ export async function refresh(req: Request, res: Response): Promise<void> {
         const { accessToken, refreshToken } = await rotateRefreshToken(oldRefreshToken);
         setAuthCookies(res, accessToken, refreshToken);
         res.status(200).json({ message: 'Token rafraîchi' });
-    } catch (err) {
+    } catch (error) {
         clearAuthCookies(res);
         res.status(401).json({ error: 'Refresh token invalide' });
     }

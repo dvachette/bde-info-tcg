@@ -1,6 +1,5 @@
 import type { User } from '@/types/user'
 import { extractErrorMessage, httpClient } from './httpService'
-import axios from 'axios'
 const authUrlPrefix = '/auth/'
 
 async function register(

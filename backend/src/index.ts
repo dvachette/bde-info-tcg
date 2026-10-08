@@ -1,8 +1,10 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import authRouter from './routers/authRouter.js';
+import authRouter from '#routers/authRouter.js';
 import cors from 'cors';
 import { config } from '#config/config.js';
+import { adminCollectionRouter, collectionRouter } from '#routers/collectionRouter.js';
+import { cardRouter } from '#routers/cardRouter.js';
 const app = express();
 
 // Setup cors middleware to allow requests from the frontend
@@ -14,6 +16,9 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRouter);
+app.use("/collection", collectionRouter);
+app.use("/admin/collection", adminCollectionRouter);
+app.use("/cards", cardRouter)
 
 
 app.listen(process.env.PORT || 3000, () => {

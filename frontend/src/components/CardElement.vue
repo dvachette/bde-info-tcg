@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type {
-  AnyCard,
-  PetInterface,
-  MemberInterface,
-  ArenaInterface,
-} from '../../../shared/types/cards'
+import type { ArenaInterface, PetInterface } from '../../../shared/types/cards'
+import type { SerializedCard, SerializedMember } from '@/types/serializedCards'
+
 const props = withDefaults(
   defineProps<{
-    card: AnyCard
+    card: SerializedCard
     draggable?: boolean
   }>(),
   {
@@ -18,14 +15,25 @@ const props = withDefaults(
 const card = computed(() => props.card)
 const isDraggable = computed(() => props.draggable)
 
-const isPet = (card: AnyCard): card is PetInterface => card.cardType === 'pet'
-const isMember = (card: AnyCard): card is MemberInterface => card.cardType === 'member'
-const isArena = (card: AnyCard): card is ArenaInterface => card.cardType === 'arena'
+const isPet = (card: SerializedCard): card is PetInterface => card.cardType === 'pet'
+const isMember = (card: SerializedCard): card is SerializedMember => card.cardType === 'member'
+const isArena = (card: SerializedCard): card is ArenaInterface => card.cardType === 'arena'
 
 const emit = defineEmits<{
-  (e: 'click', card: AnyCard): void
-  (e: 'attack', card: MemberInterface): void
+  (e: 'click', card: SerializedCard): void
+  (e: 'attack', card: SerializedMember): void
 }>()
+
+function toAbsolutePath(path: string): string {
+  return path.startsWith('/') ? path : `/${path}`
+}
+
+const pictureUrl = computed<string>(() => toAbsolutePath(card.value.picture))
+
+const mandatUrl = computed<string>(() => {
+  const current: SerializedCard = card.value
+  return current.cardType === 'member' ? `/assets/images/cards/mandats/${current.mandat}.png` : ''
+})
 
 const backgroundStyle = computed(() => {
   const poles = card.value.poles
@@ -56,7 +64,7 @@ const backgroundStyle = computed(() => {
       </div>
     </div>
     <div class="card-image" :class="isArena(card) ? 'card-image-arena' : ''">
-      <img :src="card.picture" alt="Card image" />
+      <img :src="pictureUrl" alt="Card image" />
     </div>
     <div class="card-attack" v-if="isMember(card)" @click.stop="emit('attack', card)">
       <div class="card-attack-header">
@@ -75,7 +83,7 @@ const backgroundStyle = computed(() => {
       <p>{{ card.description }}</p>
       <img
         v-if="isMember(card)"
-        :src="`assets/images/cards/mandats/${card.mandat}.png`"
+        :src="mandatUrl"
         alt="Mandat image"
         class="card-footer-mandat"
       />

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { useAuthService } from '@/services/authService'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { resolveRedirect } from '@/router/redirect'
 
 const authService = useAuthService()
 const router = useRouter()
-
+const route = useRoute()
 const loginScreen = ref<boolean>(true)
 
 const username = ref<string>('')
@@ -151,7 +152,7 @@ async function register(): Promise<void> {
   } else {
     console.log('Registration successful', message)
 
-    router.push({ name: 'home' })
+    await router.push(resolveRedirect(route.query.redirect))
   }
 }
 
@@ -162,16 +163,11 @@ async function login(): Promise<void> {
     return
   }
 
-  const { success, message } = await authService.login(identifiant.value, password.value)
+  const { success } = await authService.login(identifiant.value, password.value)
   if (!success) {
     loginError.value = "Le mot de passe ou l'identifiant est incorrect."
   } else {
-    console.log('Login successful', message)
-    if (router.currentRoute.value.query.redirect) {
-      router.push(router.currentRoute.value.query.redirect as string)
-    } else {
-      router.push({ name: 'home' })
-    }
+    await router.push(resolveRedirect(route.query.redirect))
   }
 }
 </script>

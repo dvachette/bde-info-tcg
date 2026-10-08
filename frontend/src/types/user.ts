@@ -1,7 +1,9 @@
+export type UserRole = 'PLAYER' | 'ADMIN'
+
 export interface User {
-  id: number
+  id: string
   username: string
   email: string
-  role: 'USER' | 'ADMIN'
+  role: UserRole
   keysBalance: number
 }

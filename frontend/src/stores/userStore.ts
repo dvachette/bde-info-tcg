@@ -1,16 +1,18 @@
 import { reactive, readonly } from 'vue'
 import type { User } from '@/types/user'
 import { httpClient } from '@/services/httpService'
+import { collectionStore } from '@/stores/collectionStore'
+
 interface UserState extends User {
   isAuthenticated: boolean
   isLoading: boolean
 }
 
 const state = reactive<UserState>({
-  id: -1,
+  id: '',
   username: '',
   email: '',
-  role: 'USER',
+  role: "PLAYER",
   keysBalance: 0,
   isAuthenticated: false,
   isLoading: false,
@@ -35,13 +37,15 @@ async function fetchMe(): Promise<boolean> {
   }
 }
 
+
 function clearUser(): void {
-  state.id = -1
+  state.id = ''
   state.username = ''
   state.email = ''
-  state.role = 'USER'
+  state.role = 'PLAYER'
   state.keysBalance = 0
   state.isAuthenticated = false
+  collectionStore.clearCollection()
 }
 
 async function logout(): Promise<void> {

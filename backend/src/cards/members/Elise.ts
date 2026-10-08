@@ -1,6 +1,6 @@
 import type { MemberInterface, CardMandat, Pole } from "../../../../shared/types/cards.js"
 export class Elise implements MemberInterface {
-    cardType: 'member' = 'member';
+    cardType = 'member' as const;
     health: number = 100;
     maxHealth: number = 100;
     attackName: string = "Elise's Attack";

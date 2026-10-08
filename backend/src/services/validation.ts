@@ -29,3 +29,12 @@ export const loginSchema = z.object({
     identifier: z.string().min(1, 'Identifier requis').max(255),
     password: z.string().min(1, 'Password requis'),
 });
+
+export const userIdParamSchema = z.object({ userId: z.uuid() });
+
+export const cardParamsSchema = z.object({
+    userId: z.uuid(),
+    cardId: z.string().min(1),
+});
+
+export const setQuantitySchema = z.object({ quantity: z.int().min(0) });
