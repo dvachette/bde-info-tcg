@@ -46,8 +46,22 @@ function clearCollection(): void {
   state.error = ''
 }
 
+
+async function ensureCatalog(): Promise<boolean> {
+  if (Object.keys(state.cards).length > 0) {
+    return true
+  }
+  const result = await cardService.getCards()
+  if (result.cards === undefined) {
+    state.error = result.message
+    return false
+  }
+  state.cards = result.cards
+  return true
+}
 export const collectionStore = {
   state: shallowReadonly(state),
   loadCollection,
   clearCollection,
+  ensureCatalog
 }

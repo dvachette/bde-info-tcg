@@ -55,6 +55,7 @@ model User {
   role         Role     @default(PLAYER)
   keysBalance  Int      @default(0)
   createdAt    DateTime @default(now())
+  pendingBoosters PendingBooster[]
 
   refreshTokens RefreshToken[]
   collections   Collection[]
@@ -98,4 +99,15 @@ model Deck {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, name])
+}
+
+model PendingBooster {
+  id        String   @id @default(uuid())
+  userId    String
+  boosterId String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }

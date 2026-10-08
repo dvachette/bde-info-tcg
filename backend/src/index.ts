@@ -5,6 +5,7 @@ import cors from 'cors';
 import { config } from '#config/config.js';
 import { adminCollectionRouter, collectionRouter } from '#routers/collectionRouter.js';
 import { cardRouter } from '#routers/cardRouter.js';
+import { adminBoosterRouter, boosterRouter } from '#routers/boosterRouter.js';
 const app = express();
 
 // Setup cors middleware to allow requests from the frontend
@@ -19,6 +20,8 @@ app.use('/auth', authRouter);
 app.use("/collection", collectionRouter);
 app.use("/admin/collection", adminCollectionRouter);
 app.use("/cards", cardRouter)
+app.use("/boosters", boosterRouter);
+app.use("/admin/boosters", adminBoosterRouter);
 
 
 app.listen(process.env.PORT || 3000, () => {

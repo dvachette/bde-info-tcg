@@ -4,6 +4,7 @@ import { userStore } from '@/stores/userStore.ts'
 declare module 'vue-router' {
   interface RouteMeta {
     public?: boolean
+    blocksBoosterOpening?: boolean
   }
 }
 
@@ -30,6 +31,7 @@ const router = createRouter({
       path: '/match',
       name: 'match',
       component: () => import('../views/MatchView.vue'),
+      meta: { blocksBoosterOpening: true }
     },
     {
       path: '/shop',

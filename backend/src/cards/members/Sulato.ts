@@ -11,7 +11,7 @@ export class Sulato implements MemberInterface {
     name: string = "Sulato";
     id: string = "sulato";
     description: string = "Un passionné d'informatique et de technologie.";
-    poles: Pole[] = ['communication', 'culture'];
+    poles: Pole[] = ['communication'];
     picture: string = "assets/images/cards/members/sulato.png";
 
     attack(other: MemberInterface): boolean {

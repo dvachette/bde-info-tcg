@@ -38,3 +38,8 @@ export const cardParamsSchema = z.object({
 });
 
 export const setQuantitySchema = z.object({ quantity: z.int().min(0) });
+
+export const grantBoosterSchema = z.object({
+    boosterId: z.string().min(1),
+    count: z.int().optional(),
+});

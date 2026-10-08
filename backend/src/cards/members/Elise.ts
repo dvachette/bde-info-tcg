@@ -11,7 +11,7 @@ export class Elise implements MemberInterface {
     name: string = "Elise";
     id: string = "elise";
     description: string = "A skilled member of the team with unique abilities.";
-    poles: Pole[] = ['communication', 'culture'];
+    poles: Pole[] = ['tresorerie']
     picture: string = "assets/images/cards/members/elise.png";
 
     attack(other: MemberInterface): boolean {

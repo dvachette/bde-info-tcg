@@ -7,11 +7,11 @@ export class Mzhdunosaure implements MemberInterface {
     attackDescription: string = "Mzhdunosaure uses its special ability to attack the opponent.";
     attackCost: number = 10;
     statusEffects: string[] = [];
-    mandat: CardMandat = "SDI";
+    mandat: CardMandat = "MIB";
     name: string = "Mzhdunosaure";
     id: string = "mzhdunosaure";
     description: string = "A mysterious and powerful member of the team.";
-    poles: Pole[] = ['communication', 'culture'];
+    poles: Pole[] = ['communication'];
     picture: string = "assets/images/cards/members/mzhdunosaure.png";
 
     attack(other: MemberInterface): boolean {
